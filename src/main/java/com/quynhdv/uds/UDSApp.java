@@ -11,10 +11,8 @@ public class UDSApp {
         System.out.println("Hello! Welcome to the UDS Dental Appointment Management!");
         System.out.println("__________________________________________________________________________");
 
-        // Create service instance
         AppointmentService appointmentService = new AppointmentService();
 
-        // Example: Get appointments for 1st Quarter of 2025
         int quarter = 1;
         int year = 2025;
 
