@@ -8,7 +8,7 @@ public class Patient {
     private String lastName;
     private String phoneNumber;
     private LocalDate dateOfBirth;
-    //constructor, getters, and setters
+
     public Patient(int id, String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
@@ -16,21 +16,27 @@ public class Patient {
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
     }
+
     public int getId() {
         return id;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
+
     @Override
     public String toString() {
         return "Patient{" +

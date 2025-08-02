@@ -23,6 +23,7 @@ public class AppointmentService {
 
     /**
      * Fetches the appointments data from the DAO.
+     * 
      * @return appointments the array of Appointments
      */
     public Appointment[] getAppointments() {
@@ -31,6 +32,7 @@ public class AppointmentService {
 
     /**
      * Finds a patient by their ID
+     * 
      * @param patientId the ID of the patient
      * @return the Patient object or null if not found
      */
@@ -43,9 +45,11 @@ public class AppointmentService {
     }
 
     /**
-     * Gets appointments for a specific quarter and year, sorted by date in descending order
+     * Gets appointments for a specific quarter and year, sorted by date in
+     * descending order
+     * 
      * @param quarter the quarter (1-4)
-     * @param year the year
+     * @param year    the year
      * @return list of AppointmentDTO objects with associated patient data
      */
     public List<AppointmentDTO> getAppointmentsByQuarter(int quarter, int year) {
@@ -56,23 +60,36 @@ public class AppointmentService {
         // Define the start and end months for each quarter
         int startMonth, endMonth;
         switch (quarter) {
-            case 1: startMonth = 1; endMonth = 3; break;
-            case 2: startMonth = 4; endMonth = 6; break;
-            case 3: startMonth = 7; endMonth = 9; break;
-            case 4: startMonth = 10; endMonth = 12; break;
-            default: throw new IllegalArgumentException("Invalid quarter");
+            case 1:
+                startMonth = 1;
+                endMonth = 3;
+                break;
+            case 2:
+                startMonth = 4;
+                endMonth = 6;
+                break;
+            case 3:
+                startMonth = 7;
+                endMonth = 9;
+                break;
+            case 4:
+                startMonth = 10;
+                endMonth = 12;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid quarter");
         }
 
         LocalDateTime quarterStart = LocalDateTime.of(year, startMonth, 1, 0, 0);
         LocalDateTime quarterEnd = LocalDateTime.of(year, endMonth, 1, 0, 0).plusMonths(1).minusSeconds(1);
 
         Appointment[] appointments = appointmentDAO.getAppointments();
-        
+
         return Arrays.stream(appointments)
                 .filter(appointment -> {
                     LocalDateTime appointmentDate = appointment.getDate();
-                    return appointmentDate.isAfter(quarterStart.minusSeconds(1)) && 
-                           appointmentDate.isBefore(quarterEnd.plusSeconds(1));
+                    return appointmentDate.isAfter(quarterStart.minusSeconds(1)) &&
+                            appointmentDate.isBefore(quarterEnd.plusSeconds(1));
                 })
                 .map(appointment -> {
                     Patient patient = findPatientById(appointment.getPatientId());
